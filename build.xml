@@ -2,11 +2,11 @@
 <project name="tomcat-demo" default="war" basedir=".">
 	<property file="build.properties" />
 	
-	<property name="war-file-name" value="${project-name}.war" />
+	<property name="war-file-name" value="rethin.war" />
 	<property name="source-directory" value="src" />
 	<property name="classes-directory" value="bin" />
-	<property name="web-directory" value="web" />
-	<property name="web-xml-file" value="web/WEB-INF/web.xml" />
+	<property name="web-directory" value="/usr/local/tomcat8/webapps" />
+	<property name="web-xml-file" value="/usr/local/tomcat8/conf/web.xml" />
 	<tstamp prefix="build-info">
 		<format property="current-date" pattern="d-MMMM-yyyy" locale="en" />
 		<format property="current-time" pattern="hh:mm:ss a z" locale="en" />
@@ -14,7 +14,6 @@
 	</tstamp>
 	<property name="build-directory" value="build" />
 
-	<property name="ftp-remotedir" value="uploaded-wars/${project-name}/${build-info.year-month-day}" />
 
 	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" />
 	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask" />
@@ -22,22 +21,22 @@
 	<taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask" />
 
 	<target name="stop" description="stop application in tomcat">
-		<stop url="${tomcat-manager-url}" username="${tomcat-manager-username}"
-			password="${tomcat-manager-password}" path="/${project-name}" />
+		<stop url="http://13.233.185.134:9090/manager/html" username="tomcat"
+			password="tomcat" path="/rethin.wat" />
 	</target>
 
 	<target name="start" description="start application in tomcat">
-		<start url="${tomcat-manager-url}" username="${tomcat-manager-username}"
-			password="${tomcat-manager-password}" path="/${project-name}" />
+		<start url="http://13.233.185.134:9090/manager/html" username="tomcat"
+			password="tomcat" path="/rethin.war" />
 	</target>
 	
 	<target name="undeploy" description="undeploy from tomcat">
 		<undeploy 
 			failonerror="no"
-			url="${tomcat-manager-url}"
-			username="${tomcat-manager-username}"
-			password="${tomcat-manager-password}"
-			path="/${project-name}"
+			url="13.233.185.134:9090/manager/html"
+			username="tomcat"
+			password="tomcat"
+			path="/rethin.war"
 		/>
 	</target>
 	
@@ -45,9 +44,9 @@
 		<echo>deploying from client</echo>
 		<deploy 
 			url="${tomcat-manager-url}"
-			username="${tomcat-manager-username}"
-			password="${tomcat-manager-password}"
-			path="/${project-name}"
+			username="tomcat"
+			password="tomcat"
+			path="/rethin.war"
 			war="file:/projects/workspace/${project-name}/${build-directory}/${war-file-name}"
 		/>
 	</target>
